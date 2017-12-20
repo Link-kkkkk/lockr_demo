@@ -10,6 +10,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "lockr": "^0.8.4",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
