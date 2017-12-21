@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import HelloWorld from '@/components/HelloWorld'
 import state from './../pages/state.vue'
+import binddata from './../pages/bindData.vue'
 export default new Router({
   mode: 'history',
   base: '/',
@@ -11,6 +12,11 @@ export default new Router({
       path: '/state',
       name: 'state',
       component: state
+    },
+    {
+      path: '/binddata',
+      name: 'binddata',
+      component: binddata
     },
     {
       path: '*',

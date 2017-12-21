@@ -12,7 +12,7 @@
 <script>
 import store from "./../store";
 import { mapState, mapMutations } from "vuex";
-
+import mockdata from './../util/mockdata'
 export default {
   name: "state",
   store,
@@ -27,10 +27,10 @@ export default {
   }),
   methods: {
     add() {
-      this.$store.commit("add")
+      this.$store.commit("add", 1)
     },
     reduce() {
-      this.$store.commit("reduce")
+      this.$store.commit("reduce", 1)
     },
     change(){
       console.log(this.count)
@@ -42,16 +42,7 @@ export default {
     }
   },
   mounted() {
-   var Mock = require('mockjs')
-   var data = Mock.mock({
-     'list|1-10': [{
-        'city': '@city(true)',
-        'num':'@natural()',
-        'date':'@date("yyyy-MM-dd")'
-      }]
-   })
-
-   this.$store.commit('mockDataSave', data)
+    this.$store.commit('mockDataSave', mockdata)
   }
 };
 </script>

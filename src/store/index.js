@@ -5,18 +5,22 @@ Vue.use(Vuex)
 
 const state = {
   count: 0,
-  mockData: null
+  mockData: null,
+  message:''
 }
 
 const mutations = {
-  add(state) {
-    state.count += 1;
+  add(state, num) {
+    state.count += num;
   },
-  reduce(state) {
-    state.count -= 1;
+  reduce(state, num) {
+    state.count -= num;
   },
   mockDataSave(state, val){
     state.mockData = val
+  },
+  messageSave(state, val){
+    state.message = val
   }
 }
 
