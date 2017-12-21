@@ -5,6 +5,7 @@
         <button class="btn" @click="add()">+</button>
         <button class="btn" @click="reduce()">-</button>
         <button class="btn" @click="change()">change</button>
+        <button class="btn" @click="log()">log</button>
     </div>
   </div>
 </template>
@@ -33,10 +34,24 @@ export default {
     },
     change(){
       console.log(this.count)
+    },
+    log(){
+      console.log('$store.state:')
+      console.log(this.$store.state)
+      console.log('---------------')
     }
   },
   mounted() {
-   
+   var Mock = require('mockjs')
+   var data = Mock.mock({
+     'list|1-10': [{
+        'city': '@city(true)',
+        'num':'@natural()',
+        'date':'@date("yyyy-MM-dd")'
+      }]
+   })
+
+   this.$store.commit('mockDataSave', data)
   }
 };
 </script>
