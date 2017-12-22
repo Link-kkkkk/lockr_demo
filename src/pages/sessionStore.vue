@@ -31,13 +31,15 @@ export default {
   },
   methods: {
     sessSave(e){
-      this.$store.commit('sessSave', e)
+      // 直接分发 mutation 必须同步执行
+      this.$store.dispatch('sessSave', e)
     },
     saveToSession(){
       this.sessSave(this.sess)
     },
     clear(){
-      return this.$store.commit('sessClear','sess');
+      // 使用dispatch分发可以在action的内部异步分发
+      return this.$store.dispatch('sessClear','sess');
     },
     logSession(){
       console.log('session:')
@@ -51,7 +53,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('mockDataSave', mock)
+    this.$store.dispatch('mockDataSave', mock)
   }
 };
 </script>
@@ -65,6 +67,7 @@ export default {
   border-radius: 20px;
   display: inline-block;
   cursor: pointer;
+  margin: 20px;
   background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
   &:active {
     background-image: linear-gradient(45deg, #ffa1a5 0%, #fad8cf 100%);
