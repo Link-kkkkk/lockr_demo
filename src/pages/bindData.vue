@@ -20,18 +20,14 @@ export default {
       message:''
     }
   },
-  // 使用带有 setter 的双向绑定计算属性 不能放在mapstate里
-  // message: {
-  //   get () {
-  //     return this.$store.state.message
-  //   },
-  //   set (val) {
-  //     this.$store.commit('messageSave', val)
-  //   }
-  // }
-  computed: mapState({
-    count: message => state.message,
-  }),
+  // computed: mapState({
+  //   count: message => state.message,
+  // }),
+  computed: {
+    messageGet(){
+      return this.$store.getters.message;
+    }
+  },
   methods: {
     messageSave(e){
       this.$store.commit('messageSave', e.target.value)
@@ -43,7 +39,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('mockDataSave', mock.mockdata)
+    this.$store.commit('mockDataSave', mock)
   }
 };
 </script>
