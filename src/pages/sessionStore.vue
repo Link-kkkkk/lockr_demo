@@ -1,11 +1,10 @@
 <template>
-  <div class="bind_warp">
-    <!-- 给 <input> 中绑定 value，然后侦听 input 或者 change 事件，在事件回调中调用 action: -->
-    <input :value="message" @input="messageSave" class="inputBox" placeholder="@input">
-
-    <input v-model="message" class="inputBox" placeholder="vmodel">
-
+  <div class="sess_warp">
+    <input v-model="sess" class="inputBox" placeholder="vmodel">
+    <button class="btn" @click="saveToSession()">save</button>
+    <button class="btn" @click="clear()">clear</button>
     <button class="btn" @click="log()">log</button>
+    <button class="btn" @click="logSession()">logSession</button>
   </div>
 </template>
 <script>
@@ -13,25 +12,37 @@ import store from "./../store";
 import { mapState, mapMutations } from "vuex";
 import mock from './../util/mockdata'
 export default {
-  name: "state",
+  name: "sess",
   store,
   data(){
     return{
-      message:''
+      message:'',
+      sess:''
     }
   },
   // computed: mapState({
   //   count: message => state.message,
   // }),
-  // 这里不computed不使用getter也可以存储
+  // 获取原有数据
   computed: {
-    messageGet(){
-      return this.$store.getters.message;
+    sessGet(){
+      return this.$store.getters.sess;
     }
   },
   methods: {
-    messageSave(e){
-      this.$store.commit('messageSave', e.target.value)
+    sessSave(e){
+      this.$store.commit('sessSave', e)
+    },
+    saveToSession(){
+      this.sessSave(this.sess)
+    },
+    clear(){
+      return this.$store.commit('sessClear','sess');
+    },
+    logSession(){
+      console.log('session:')
+      console.log(window.sessionStorage.getItem("sess"))
+      console.log('---------------')
     },
     log(){
       console.log('$store.state:')
