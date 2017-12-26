@@ -9,12 +9,10 @@
   </div>
 </template>
 <script>
-import store from "./../store";
 import { mapState, mapMutations } from "vuex";
 import mock from './../util/mockdata'
 export default {
   name: "state",
-  store,
   data(){
     return{
       message:''

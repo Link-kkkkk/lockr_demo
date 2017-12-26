@@ -18,6 +18,7 @@ Vue.use(Router)
 new Vue({
   el: '#app',
   router,
+  store,
   // template: '<App/>',
   // components: { App }
   render: e => e(App)

@@ -36,6 +36,9 @@ const actions = {
   sessClear ({ commit }) {
     return commit('sessClear')
   },
+  clearAll ({ commit }) {
+    return commit('clearAll')
+  }
 }
 
 const mutations = {
@@ -60,6 +63,12 @@ const mutations = {
   sessClear(state){
     state.sess = null
     window.sessionStorage.removeItem("sess")
+  },
+  clearAll(state){
+    state.sess = null
+    state.message = null
+    window.sessionStorage.clear()
+    window.localStorage.clear()
   }
 }
 
