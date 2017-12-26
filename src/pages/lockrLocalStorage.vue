@@ -13,70 +13,84 @@
   </div>
 </template>
 <script>
-import mock from './../util/mockdata'
-import Lockr from 'lockr'
+import mock from "./../util/mockdata";
+import Lockr from "lockr";
+import { mapState } from "vuex";
 export default {
   name: "lockr",
-  data(){
-    return{
-      message:'',
-      lockrData:'',
-      lockrtype:'',
-      lockrval:''
-    }
+  data() {
+    return {
+      mess: "i am a message",
+      lockrData: "",
+      lockrtype: "",
+      lockrval: ""
+    };
   },
   // 获取原有数据
   computed: {
-    sessGet(){
-      return this.$store.getters.sess;
-    }
+    // ...mapState(["count", "message"])
+    ...mapState({
+      message:function(state){
+        if(!state.message){
+          // 异步存储
+          // localStorage无法响应式，所以必须要在computed里面双向绑定
+          this.$store.dispatch('messageSave',this.mess)
+          Lockr.set('message', this.mess);
+        }
+        return state.message
+      }
+    })
   },
   methods: {
-    lockrset(){
-      var _this = this
+    lockrset() {
+      var _this = this;
       // 前缀，会加在所有lockr方式存储的数据头部
       // Lockr.prefix = 'lockr_';
       Lockr.set(_this.lockrtype, _this.lockrval);
     },
-    lockrget(){
-      var _this = this
-      console.log(Lockr.get(_this.lockrtype))
+    lockrget() {
+      var _this = this;
+      console.log(Lockr.get(_this.lockrtype));
     },
-    lockrsadd(){
-      var _this = this
+    lockrsadd() {
+      var _this = this;
 
       // 加入到一个对象的数组内
       Lockr.sadd(_this.lockrtype, _this.lockrval);
-      Lockr.sadd(_this.lockrtype, _this.lockrval + '-shadow');
+      Lockr.sadd(_this.lockrtype, _this.lockrval + "-shadow");
     },
     lockrsmembers() {
-      var _this = this
+      var _this = this;
       // 会返回key值下面的数组
       // 可以用Lockr.sismember - arguments [ key, value ]搜索数组
-      console.log(Lockr.smembers(_this.lockrtype))
+      console.log(Lockr.smembers(_this.lockrtype));
     },
-    lockrgetall(){
-      console.log(Lockr.getAll(true))
+    lockrgetall() {
+      console.log(Lockr.getAll(true));
     },
-    lockrclear(){
+    lockrclear() {
       Lockr.flush();
     },
-    clear(){
-      console.log('all clear!')
-      console.log('---------------')
+    clear() {
+      console.log("all clear!");
+      console.log("---------------");
       // 使用dispatch分发可以在action的内部异步分发
-      return this.$store.dispatch('clearAll');
+      return this.$store.dispatch("clearAll");
     },
-    log(){
-      console.log('session:')
-      console.log(sessionStorage)
-      console.log('local:')
-      console.log(localStorage)
-      console.log('---------------')
+    log() {
+      console.log("session:");
+      console.log(sessionStorage);
+      console.log("local:");
+      console.log(localStorage);
+      console.log("$store.state:");
+      console.log(this.$store.state);
+      console.log("---------------");
     }
   },
   mounted() {
-    this.$store.dispatch('mockDataSave', mock)
+    this.$store.dispatch("mockDataSave", mock);
+
+    console.log(this.message);
   }
 };
 </script>
@@ -97,7 +111,7 @@ export default {
   }
 }
 
-.inputBox{
+.inputBox {
   outline: none;
   border: 2px solid #ffa1a5;
   height: 40px;

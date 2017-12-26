@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const state = {
   count: 0,
   mockData: null,
-  message:'',
+  message:null,
   sess:null
 }
 
@@ -27,8 +27,8 @@ const actions = {
   mockDataSave ({ commit }, data) {
     return commit('mockDataSave',data)
   },
-  messageSave ({ commit }) {
-    return commit('messageSave')
+  messageSave ({ commit }, val) {
+    return commit('messageSave', val)
   },
   sessSave ({ commit }, sess) {
     return commit('sessSave', sess)
